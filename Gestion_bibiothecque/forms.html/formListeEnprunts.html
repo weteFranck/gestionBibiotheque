@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Emprunts - Bibliothèque</title>
+    <link rel="stylesheet" href="/Gestion_bibiothecque/style.css/formListeEnprunts.css">
+</head>
+<body>
+
+<div class="container">
+    <a href="index.php" class="btn-back">⬅ Accueil</a>
+    <h1>📊 Suivi des Emprunts</h1>
+
+    <!-- SECTION STATISTIQUES -->
+    <h2>📈 Popularité des livres (Nombre d'emprunts)</h2>
+    <div class="stats-card">
+        <?php if (count($statsLivres) > 0): ?>
+            <?php foreach ($statsLivres as $stat): ?>
+                <div class="stat-item">
+                    <span><?php echo htmlspecialchars($stat['TITRE']); ?></span>
+                    <strong><?php echo $stat['TOTAL_EMPRUNTS']; ?> fois</strong>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Aucune statistique disponible.</p>
+        <?php endif; ?>
+    </div>
+
+    <!-- SECTION LISTE DÉTAILLÉE -->
+    <h2>📋 Historique détaillé des emprunts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Livre</th>
+                <th>Lecteur</th>
+                <th>Date d'emprunt</th>
+                <th>Retour prévu (jours)</th>
+                <th>Quantité</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (count($emprunts) > 0): ?>
+                <?php foreach ($emprunts as $emp): ?>
+                    <tr>
+                        <td><strong><?php echo htmlspecialchars($emp['TITRE']); ?></strong></td>
+                        <td><?php echo htmlspecialchars($emp['NOM_LECTEUR']); ?></td>
+                        <td><?php echo htmlspecialchars($emp['DATEDONNEE']); ?></td>
+                        <td><span class="badge"><?php echo htmlspecialchars($emp['DATERETOUR']); ?> jours</span></td>
+                        <td><?php echo htmlspecialchars($emp['QUANTITE']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px;">Aucun emprunt enregistré.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+<script src="/Gestion_bibiothecque/logique/listeEmprunts.php"></script>
+
+</body>
+</html>

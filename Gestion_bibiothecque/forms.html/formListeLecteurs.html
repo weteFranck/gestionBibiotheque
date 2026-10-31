@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Lecteurs - Bibliothèque</title>
+    <link rel="stylesheet" href="/Gestion_bibiothecque/style.css/formListeLecteurs.css">
+</head>
+<body>
+
+<div class="container">
+    <a href="index.php" class="btn-back">⬅ Accueil</a>
+    <h1>👥 Liste des Lecteurs et leurs Emprunts</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom du Lecteur</th>
+                <th>Coordonnées</th>
+                <th>Livres empruntés</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (count($lecteurs) > 0): ?>
+                <?php foreach ($lecteurs as $lecteur): ?>
+                    <tr>
+                        <td><strong><?php echo htmlspecialchars($lecteur['NOM']); ?></strong></td>
+                        <td>
+                            <small>
+                                📍 <?php echo htmlspecialchars($lecteur['ADRESSE'] ?: 'Non renseignée'); ?><br>
+                                📞 <?php echo htmlspecialchars($lecteur['TELEPHONE'] ?: 'Non renseigné'); ?>
+                            </small>
+                        </td>
+                        <td class="livres-list">
+                            <?php echo htmlspecialchars($lecteur['LIVRES_EMPRUNTES'] ?: 'Aucun emprunt en cours'); ?>
+                        </td>
+                        <td>
+                            <span class="badge-count"><?php echo $lecteur['NB_EMPRUNTS']; ?></span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 20px;">Aucun lecteur trouvé dans la base.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+
+<script src="/Gestion_bibiothecque/logique/listeLecteurs.php"></script>
+
+</body>
+</html>

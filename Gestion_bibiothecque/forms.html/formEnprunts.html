@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enregistrer un Emprunt - Bibliothèque</title>
+    <link rel="stylesheet" href="/Gestion_bibiothecque/style.css/formEnprunts.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📖 Enregistrer un Emprunt</h1>
+    
+    <?php if ($message): ?>
+        <div class="message <?php echo $messageType; ?>"><?php echo $message; ?></div>
+    <?php endif; ?>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="id_lecteur">Sélectionner le Lecteur</label>
+            <select name="id_lecteur" id="id_lecteur" required>
+                <option value="">-- Choisir un lecteur --</option>
+                <?php foreach ($lecteurs as $lecteur): ?>
+                    <option value="<?php echo $lecteur['IDLECTEUR']; ?>">
+                        <?php echo htmlspecialchars($lecteur['NOM']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Livres à emprunter</label>
+            <div id="books-container" class="book-select-container">
+                <div class="book-item">
+                    <select name="livres[]" required>
+                        <option value="">-- Choisir un livre --</option>
+                        <?php foreach ($livres as $livre): ?>
+                            <option value="<?php echo $livre['IDLIVRE']; ?>">
+                                <?php echo htmlspecialchars($livre['TITRE']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="btn btn-add" onclick="addBookSelect()">+ Ajouter un autre livre</button>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+            <div class="form-group" style="flex: 1;">
+                <label for="date_emprunt">Date d'emprunt</label>
+                <input type="date" name="date_emprunt" id="date_emprunt" required value="<?php echo date('Y-m-d'); ?>">
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label for="duree">Durée prévue (jours)</label>
+                <input type="number" name="duree" id="duree" required value="14" min="1">
+            </div>
+        </div>
+
+        <button type="submit" name="enregistrer_emprunt" class="btn btn-primary">💾 Valider l'emprunt</button>
+    </form>
+
+    <a href="index.php" class="btn-back">⬅ Retour à l'accueil</a>
+</div>
+
+<script src="/Gestion_bibiothecque/logique/formulaireEmprunt.php"></script>
+
+</body>
+</html>
